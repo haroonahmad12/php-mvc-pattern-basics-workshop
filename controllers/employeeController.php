@@ -41,7 +41,28 @@ function getAllEmployees()
  */
 function getEmployee($request)
 {
-    //
+
+    $employee = getEmployeeData();
+
+    if (isset($employee)) {
+        require_once VIEWS . "/employee/employee.php";
+    } else {
+        error("There is a database error, try again.");
+    }
+}
+
+function getEmployeeData()
+{
+
+    $employeeNo = isset($_GET["id"]) ? $_GET["id"] : "";
+    $employees = get();
+
+    foreach ($employees as $employee) {
+        if ($employeeNo == $employee["emp_no"]) {
+
+            return $employee;
+        }
+    }
 }
 
 /**
@@ -50,4 +71,30 @@ function getEmployee($request)
 function error($errorMsg)
 {
     require_once VIEWS . "/error/error.php";
+}
+
+
+function NewEmployeeForm()
+{
+    require_once VIEWS . "/employee/employee.php";
+}
+
+
+function updateEmployee()
+{
+    send($_POST, $_REQUEST["action"]);
+    getAllEmployees();
+}
+
+function addNewEmployee()
+{
+    send($_POST, $_REQUEST["action"]);
+    getAllEmployees();
+}
+
+
+function deleteEmployee()
+{
+    send($_GET, $_REQUEST["action"]);
+    getAllEmployees();
 }
