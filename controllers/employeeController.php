@@ -9,6 +9,17 @@ require_once MODELS . "employeeModel.php";
 
 
 /* ~~~ CONTROLLER FUNCTIONS ~~~ */
+$action = "";
+
+if (isset($_REQUEST["action"])) {
+    $action = $_REQUEST["action"];
+}
+
+if (function_exists($action)) {
+    call_user_func($action, $_REQUEST);
+} else {
+    error("Invalid user action");
+}
 
 /**
  * This function calls the corresponding model function and includes the corresponding view
@@ -16,6 +27,13 @@ require_once MODELS . "employeeModel.php";
 function getAllEmployees()
 {
     //
+
+    $employees = get();
+    if (isset($employees)) {
+        require_once VIEWS . "/employee/employeeDashboard.php";
+    } else {
+        error("There is a database error, try again.");
+    }
 }
 
 /**
