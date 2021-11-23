@@ -11,7 +11,11 @@
 <body>
     <header class=" d-flex justify-content-between">
         <h1>Employee Dashboard page!</h1>
-        <button type="button" class="btn btn-success"><a class="text-decoration-none text-light w-100 h-100" href="?controller=employee&action=NewEmployeeForm">Add New Employee</a></button>
+        <div>
+            <button type="button" class="btn btn-success"><a class="text-decoration-none text-light w-100 h-100" href="?controller=employee&action=NewEmployeeForm">Add New Employee</a></button>
+
+            <button class="btn btn-secondary"><a id="home" class="text-decoration-none text-light" href="./">Go Back</a></button>
+        </div>
     </header>
 
     <table class="table text-center">
@@ -46,7 +50,7 @@
         </tbody>
     </table>
 
-    <a id="home" class="btn btn-secondary" href="./">Back</a>
+
 </body>
 
 </html>

@@ -13,6 +13,10 @@
     <h1>Welcome to MVC Pattern Basics!</h1>
     <div class="list-group">
         <a class="list-group-item list-group-item-action" href="?controller=employee&action=getAllEmployees">Employee Controller</a>
+    </div>
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action" href="?controller=department&action=getAllDepartments">Department Controller</a>
+    </div>
 </body>
 
 </html>
