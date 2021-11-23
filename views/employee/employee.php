@@ -59,7 +59,7 @@ $birthDate = isset($employee["birth_date"]) ? $employee["birth_date"] : "";
                 <input name="id" hidden value="<?= $id ?>">
                 <div class="form-group col-md-4 mt-2 d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary mt-2"><?= ($id == "") ? "Add Employee" : "Save Changes" ?></button>
-                    <button type="button" class="btn btn-secondary mt-2"><a class="text-decoration-none text-light" href="<?= $_SERVER['HTTP_REFERER'] ?>">Return</a></button>
+                    <button type="button" class="btn btn-secondary mt-2"><a class="text-decoration-none text-light" href="?controller=employee&action=getAllEmployees">Return</a></button>
                 </div>
             </div>
 

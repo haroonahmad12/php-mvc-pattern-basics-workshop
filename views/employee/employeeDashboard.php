@@ -22,7 +22,7 @@
                 <th class="tg-0lax">Last Name</th>
                 <th class="tg-0lax">Gender</th>
                 <th class="tg-0lax">Hire Date</th>
-                <th class="tg-0lax">Birthday</th>
+                <th class="tg-0lax">Department</th>
                 <th class="tg-0lax">Actions</th>
             </tr>
         </thead>
@@ -35,7 +35,7 @@
                 echo "<td class='tg-0lax'>" . $employee["last_name"] . "</td>";
                 echo "<td class='tg-0lax'>" . $employee["gender"] . "</td>";
                 echo "<td class='tg-0lax'>" . $employee["hire_date"] . "</td>";
-                echo "<td class='tg-0lax'>" . $employee["birth_date"] . "</td>";
+                echo "<td class='tg-0lax'>" . $employee["dept_name"] . "</td>";
                 echo "<td colspan='2' class='tg-0lax'>
                 <a class='btn btn-secondary' href='?controller=employee&action=getEmployee&id=" . $employee["emp_no"] . "'>Edit</a>
                 <a class='btn btn-danger' href='?controller=employee&action=deleteEmployee&id=" . $employee["emp_no"] . "'>Delete</a>

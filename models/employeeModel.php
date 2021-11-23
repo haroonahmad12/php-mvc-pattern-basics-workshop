@@ -3,11 +3,11 @@ require_once("helpers/dbConnection.php");
 
 function get()
 {
-    $query = conn()->prepare("SELECT e.emp_no, e.first_name, e.last_name, e.gender, e.hire_date, e.birth_date
-    FROM employees e
-    
-    
-    ORDER BY e.emp_no ASC;");
+    $query = conn()->prepare("SELECT employees.emp_no, employees.first_name, employees.last_name, employees.gender, employees.hire_date, departments.dept_name
+    FROM employees
+    INNER JOIN dept_emp ON employees.emp_no = dept_emp.emp_no 
+    INNER JOIN departments ON dept_emp.dept_no = departments.dept_no
+    ORDER BY departments . dept_name;");
 
     try {
         $query->execute();
@@ -40,7 +40,7 @@ function send($update, $action)
     switch ($action) {
         case 'updateEmployee':
             $sendQuery =
-                "UPDATE employees SET birth_date = '$birth', first_name = '$name', last_name = '$lastName', gender = '$gender',  hire_date = '$hired' WHERE emp_no = $id;";
+                "UPDATE employees SET birth_date = '$birth', first_name = '$name', last_name = '$lastName', gender = '$gender',  hire_date = '$hired' WHERE emp_no = $id ;";
             break;
 
         case 'addNewEmployee':
@@ -60,13 +60,7 @@ function send($update, $action)
 
     try {
         $query->execute();
-        $employees = $query->fetchAll();
-
-        foreach ($employees as $e) {
-            # code...
-
-            echo $e;
-        }
+        $query->fetchAll();
     } catch (PDOException $e) {
         return [];
     }

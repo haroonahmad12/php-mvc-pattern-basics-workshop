@@ -83,18 +83,19 @@ function NewEmployeeForm()
 function updateEmployee()
 {
     send($_POST, $_REQUEST["action"]);
-    getAllEmployees();
+
+    header("Location: ./index.php?controller=employee&action=getAllEmployees");
 }
 
 function addNewEmployee()
 {
     send($_POST, $_REQUEST["action"]);
-    getAllEmployees();
+    header("Location: ./index.php?controller=employee&action=getAllEmployees");
 }
 
 
 function deleteEmployee()
 {
     send($_GET, $_REQUEST["action"]);
-    getAllEmployees();
+    header("Location: ./index.php?controller=employee&action=getAllEmployees");
 }
