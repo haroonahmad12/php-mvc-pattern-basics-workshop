@@ -31,7 +31,7 @@ function send($update, $action)
 
     //new id in case of new employee
 
-    $newId = getMaxEmpNo();
+
 
 
 
@@ -39,12 +39,11 @@ function send($update, $action)
 
     switch ($action) {
         case 'updateEmployee':
-            $sendQuery =
-                "UPDATE employees SET birth_date = '$birth', first_name = '$name', last_name = '$lastName', gender = '$gender',  hire_date = '$hired' WHERE emp_no = $id;";
+
             break;
 
         case 'addNewEmployee':
-            $sendQuery = "INSERT INTO employees values ('$newId' ,'$birth' ,'$name','$lastName', '$gender',  '$hired');";
+
             break;
         case 'deleteEmployee':
 
@@ -55,37 +54,4 @@ function send($update, $action)
             # code...
             break;
     }
-
-    $query = conn()->prepare($sendQuery);
-
-    try {
-        $query->execute();
-        $employees = $query->fetchAll();
-
-        foreach ($employees as $e) {
-            # code...
-
-            echo $e;
-        }
-    } catch (PDOException $e) {
-        return [];
-    }
-}
-
-
-//Function to get highest employee number in order to add a new one!
-
-function getMaxEmpNo()
-{
-    $employees = get();
-
-    $numArray = [];
-    foreach ($employees as $emp_no) {
-        # code...
-
-        $numArray[] = $emp_no['emp_no'];
-    }
-
-
-    return (max($numArray) + 1);
 }

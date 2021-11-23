@@ -82,19 +82,77 @@ function NewEmployeeForm()
 
 function updateEmployee()
 {
-    send($_POST, $_REQUEST["action"]);
-    getAllEmployees();
+    $name = isset($_POST["first_name"]) ? $_POST["first_name"] : "";
+    $lastName = isset($_POST["last_name"]) ? $_POST["last_name"] : "";
+    $gender = isset($_POST["gender"]) ? $_POST["gender"] : "";
+    $birth = isset($_POST["birth_date"]) ? $_POST["birth_date"] : "";
+    $hired = isset($_POST["hire_date"]) ? $_POST["hire_date"] : "";
+    $id = isset($_POST["id"]) ? $_POST["id"] : "";
+
+    $sendQuery = "UPDATE employees SET birth_date = ?, first_name = ?, last_name = ?, gender = ?,   hire_date = ? WHERE emp_no = ?;";
+
+    $query = conn()->prepare($sendQuery);
+    try {
+        $query->execute([$birth, $name, $lastName, $gender, $hired, $id]);
+        $query->fetchAll();
+    } catch (PDOException $e) {
+        return [];
+    }
+
+    header("Location: ./index.php?controller=employee&action=getAllEmployees");
 }
 
 function addNewEmployee()
 {
-    send($_POST, $_REQUEST["action"]);
-    getAllEmployees();
+    $name = isset($_POST["first_name"]) ? $_POST["first_name"] : "";
+    $lastName = isset($_POST["last_name"]) ? $_POST["last_name"] : "";
+    $gender = isset($_POST["gender"]) ? $_POST["gender"] : "";
+    $birth = isset($_POST["birth_date"]) ? $_POST["birth_date"] : "";
+    $hired = isset($_POST["hire_date"]) ? $_POST["hire_date"] : "";
+    $newId = getMaxEmpNo();
+
+    $sendQuery = "INSERT INTO employees values (?,?,?,?,?,?);";
+    $query = conn()->prepare($sendQuery);
+
+    try {
+        $query->execute([$newId, $birth, $name, $lastName, $gender,  $hired]);
+        $query->fetchAll();
+    } catch (PDOException $e) {
+        return [];
+    }
+    header("Location: ./index.php?controller=employee&action=getAllEmployees");
 }
 
 
 function deleteEmployee()
 {
-    send($_GET, $_REQUEST["action"]);
-    getAllEmployees();
+    $id = $_GET["id"];
+    $sendQuery = "DELETE employees FROM employees WHERE emp_no = ?;";
+    $query = conn()->prepare($sendQuery);
+
+    try {
+        $query->execute([$id]);
+        $query->fetchAll();
+    } catch (PDOException $e) {
+        return [];
+    }
+
+    header("Location: ./index.php?controller=employee&action=getAllEmployees");
+}
+
+
+//Function to get highest employee number in order to add a new one!
+
+function getMaxEmpNo()
+{
+    $employees = get();
+
+    $numArray = [];
+    foreach ($employees as $emp_no) {
+        # code...
+
+        $numArray[] = $emp_no['emp_no'];
+    }
+
+    return (max($numArray) + 1);
 }
